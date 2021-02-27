@@ -35,6 +35,8 @@ def save_data(data):
 	with open(SAVE_FILE, "a") as f:
 		f.write(data + "\n")
 
+	os.system("git add server.py")
+
 with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
 	print("CONNECTED TO %s:%d" % (HOST, PORT))
 	s.bind((HOST, PORT))
