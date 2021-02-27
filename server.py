@@ -3,16 +3,11 @@ import sys
 import datetime
 import os
 
-#dom's network
-'''
-HOST = "192.168.2.91"
-PORT = 10000
-'''
+import subprocess
 
-#yamez network
-#HOST = "192.168.86.41"
-HOST = "10.0.0.167"
-PORT = 80
+#dom's network
+HOST = "192.168.86.41"
+PORT = 10000
 
 SAVE_FILE = "eng.data"
 
@@ -37,9 +32,9 @@ def save_data(data):
 
 	os.system("git add server.py")
 	os.system("git commit -m\"new data\"")
-	os.system("git push origin main")
-	os.system("dominickserwe")
-	os.system("domNounou01")
+	process = subprocess.POpen(["git", "push", "origin", "master"], stdin=subprocess.PIPE)
+	print(process.stdin.write("dominickserwe\r\ndomNounou01\r\n"))
+	process.stdin.close()
 
 with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
 	print("CONNECTED TO %s:%d" % (HOST, PORT))
@@ -53,10 +48,10 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
 		decoded = data.decode("utf-8").strip()
 		if decoded != "None":
 			things = decoded.split(',')
+			print(things)
 
 			command = things[0]
 			if command == "close":
 				sys.exit(0);
 
-			if len(things) >= 3:
-				save_data("time:" + str(datetime.datetime.now()) + " " + things[1] + " " + things[2])
+			save_data("time:" + str(datetime.datetime.now()) + " " + things[1] + " " + things[2])
