@@ -32,7 +32,7 @@ def save_data(data):
 
 	os.system("git add server.py")
 	os.system("git commit -m\"new data\"")
-	process = subprocess.POpen(["git", "push", "origin", "master"], stdin=subprocess.PIPE)
+	process = subprocess.Popen(["git", "push", "origin", "master"], stdin=subprocess.PIPE)
 	print(process.stdin.write("dominickserwe\r\ndomNounou01\r\n"))
 	process.stdin.close()
 
@@ -48,7 +48,6 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
 		decoded = data.decode("utf-8").strip()
 		if decoded != "None":
 			things = decoded.split(',')
-			print(things)
 
 			command = things[0]
 			if command == "close":
